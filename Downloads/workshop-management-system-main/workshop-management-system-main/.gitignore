@@ -1,0 +1,51 @@
+# Global Node.js and React exclusions
+node_modules/
+build/
+dist/
+
+# Log files
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+### Django ###
+*.log
+*.pot
+*.pyc
+*.pyo
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
+
+# Environments
+.env
+env/
+.venv/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Editor/IDE directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Windows system files
+Thumbs.db
+
+# Docker specific files
+.docker/
+docker-compose.override.yml

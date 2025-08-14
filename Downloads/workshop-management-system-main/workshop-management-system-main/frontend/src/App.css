@@ -1,0 +1,431 @@
+* {
+  margin: 0;
+  padding: 0;
+  /*width: 100%;
+  max-width: 100vw;  Prevents elements from expanding beyond the viewport */
+  overflow-x: hidden;
+}
+
+/* Set a mobile-first background color */
+body {
+  background-color: rgb(76, 138, 76);
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.auth-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Toast CSS for x button */
+.Toastify__toast {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding-right: 10px !important;
+}
+
+.Toastify__close-button {
+  position: absolute !important;
+  right: 15px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+/* Signup Card */
+.card {
+  border-radius: 8px;
+  width: 90%;
+  /* max-width: 400px; Mobile width */
+  padding: 20px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column; /* Column by default */
+  align-items: center;
+  text-align: center;
+  justify-self: center;
+}
+
+/* Auth Container */
+.auth-page-container {
+  display: flex;
+  flex-direction: column; /* Default: Logo on top */
+  align-items: center;
+  width: 100%;
+}
+
+/* Logo Styles */
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: rgb(76, 138, 76);
+  margin-bottom: 10px;
+}
+
+.logo-container img {
+  width: 150px; /* Smaller logo for mobile */
+  height: auto;
+}
+
+/* Form Styling */
+.auth-form-container {
+  width: 100%;
+  max-width: 450px;
+}
+
+.button-max-width {
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* NAVBAR */
+.logout-container {
+  width: 200px;
+}
+
+/* PageLayout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-container {
+  display: flex;
+  flex: 1;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 40%;
+  height: 100vh;
+  background-color: #343a40;
+  z-index: 1050; /* Ensure sidebar is above the backdrop */
+  transition: left 0.3s ease;
+  overflow-y: auto;
+  overflow-x: visible !important;
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 998; /* behind sidebar, above content */
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-brand {
+  color: white;
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #495057;
+}
+
+.main-content {
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+}
+
+  /* Overlay when sidebar is open */
+.sidebar-open::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1040;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.nav-list li {
+  width: 100%;
+  overflow: visible !important;
+}
+
+.nav-list a {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.nav-list a:hover, .dropdown-menu li a:hover {
+  background-color: #495057;
+}
+
+.icon {
+  font-size: 20px;
+  min-width: 40px;
+  text-align: center;
+  max-width: 40px;
+  color: white;
+}
+
+.link-text {
+  white-space: nowrap;
+  opacity: 1;
+  color: white;
+  overflow: hidden;
+}
+
+.hamburger-menu {
+  max-width: max-content;
+  margin-left: 30px;
+  margin-right: 70px;
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.dropdown-toggle::after {
+  content: none !important; /* to remove extra arrow */
+}
+
+.dropdown-menu {
+  position: relative;
+  background-color: #343a40; /* Match sidebar background */
+  padding-left: 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 0.3rem 0.75rem;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.arrow-icon {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  color: white; /* Ensure arrow color matches sidebar */
+  font-size: 16px;
+}
+
+
+
+/* Spare parts Print */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  #print-area, #print-area * {
+    visibility: visible !important;
+  }
+
+  #print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+  }
+
+  .table-auto {
+    font-size: 12px;
+    border: 1px solid #000;
+    width: 100%;
+  }
+
+  @page {
+    size: landscape;
+    margin: 1cm;
+  }
+}
+
+/* INVENTORY FILTER CARDS */
+.filter-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto; /* center on mobile */
+}
+
+.filter-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+.filter-card.active {
+  border: 2px solid #000000;
+  background-color: #ffdd76;
+}
+
+
+
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+
+
+
+
+/* Responsive Design for Larger Screens */
+@media screen and (min-width: 768px) {
+  .card {
+    flex-direction: row; /* Side-by-side layout */
+    max-width: 100vw;
+  }
+
+  .auth-page-container {
+    flex-direction: row; /* Form and logo side-by-side */
+    align-items: stretch;
+  }
+
+  .logo-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px;
+  }
+
+  .logo-container img {
+    width: 100%; /* Make logo take full height */
+    max-width: 400px; /* Adjust max size */
+  }
+
+  .auth-form-container {
+    flex: 1;
+    max-width: none;
+    margin-left: 10px;
+  }
+
+  .logout-container {
+    width: auto;
+  }
+
+  /* .sidebar:hover ~ .main-content {
+    margin-left: 220px; 
+  } */
+
+    /* Sidebar.css */
+  .sidebar {
+    width: 70px;
+    height: 100vh; /*(100vh - 56px);  adjust for navbar height */ 
+    background-color: #343a40;
+    transition: width 0.3s;
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar:hover, .sidebar.sidebar-expanded {
+    width: 250px;
+    overflow: visible;
+  }
+
+  .logo {
+    color: white;
+    font-size: 1.2rem;
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+
+  .nav-list li {
+    width: 100%;
+  }
+
+  .nav-list a {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-list a:hover {
+    background-color: #495057;
+  }
+
+  .icon {
+    font-size: 20px;
+    min-width: 40px;
+    text-align: center;
+    max-width: 40px
+  }
+
+  .link-text {
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    overflow: hidden;
+  }
+
+  .sidebar:hover .link-text {
+    opacity: 1;
+  }
+
+  .sidebar.sidebar-expanded .link-text {
+    opacity: 1;
+  }
+
+  /* INVENTORY FILTER CARDS */
+  .filter-card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .filter-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+  }
+
+  .filter-card.active {
+    border: 2px solid #000000;
+    background-color: #ffdd76
+  }
+
+}
+
+

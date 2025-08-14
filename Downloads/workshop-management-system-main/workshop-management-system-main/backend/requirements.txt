@@ -1,0 +1,14 @@
+asgiref
+Django
+mysqlclient
+django-cors-headers
+djangorestframework
+djangorestframework-simplejwt
+PyJWT
+pytz
+sqlparse
+django-environ
+Pillow
+channels
+channels_redis
+daphne

@@ -1,0 +1,79 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: wksp-mgmt-sys-backend-1
+    restart: on-failure
+    ports:
+      - "28000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_PORT=3306
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
+    networks:
+      - wksp-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # Enables hot reload in Docker
+    depends_on:
+      - backend
+    networks:
+      - wksp-network
+
+  db:
+    image: mysql:8.0.43
+    container_name: wksp-mgmt-sys-db-1
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    env_file:
+      - .env
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - wksp-network
+    # healthcheck:
+    #   test: ["CMD", "mysql", "ping", "-h", "db", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+    #   interval: 10s
+    #   retries: 3
+  
+  redis:  
+    image: redis:latest
+    container_name: wksp-mgmt-sys-redis-1
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - wksp-network
+
+volumes:
+  mysql_data: 
+
+networks:
+  wksp-network:
+    driver: bridge
