@@ -23,11 +23,11 @@ install-frontend:
   stage: install
   image: node:18
   script:
-    - cd Downloads/frontend
+    - cd Downloads/workshop-management-system-main/workshop-management-system-main/frontend
     - npm install
   artifacts:
     paths:
-      - Downloads/frontend/node_modules
+      - Downloads/workshop-management-system-main/workshop-management-system-main/frontend/node_modules
 
 # Install Backend
 install-backend:
@@ -35,18 +35,18 @@ install-backend:
   image: python:3.11
   script:
     - pip install pipenv
-    - cd Downloads/backend
+    - cd Downloads/workshop-management-system-main/workshop-management-system-main/backend
     - pipenv install --dev
   artifacts:
     paths:
-      - Downloads/backend/.venv
+      - Downloads/workshop-management-system-main/workshop-management-system-main/backend/.venv
 
 # Test Frontend
 test-frontend:
   stage: test
   image: node:18
   script:
-    - cd Downloads/frontend
+    - cd Downloads/workshop-management-system-main/workshop-management-system-main/frontend
     - npm test -- --watchAll=false
 
 # Test Backend
@@ -54,7 +54,7 @@ test-backend:
   stage: test
   image: python:3.11
   script:
-    - cd Downloads/backend
+    - cd Downloads/workshop-management-system-main/workshop-management-system-main/backend
     - pip install pipenv
     - pipenv install --dev
     - pipenv run python manage.py test
