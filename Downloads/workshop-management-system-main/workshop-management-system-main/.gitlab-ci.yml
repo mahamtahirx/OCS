@@ -1,65 +1,3 @@
-# stages:
-#   - install
-#   - test
-
-# variables:
-#   MYSQL_DB: workshop
-#   MYSQL_USER: wksp_user
-#   MYSQL_PASSWORD: wksp_password
-#   MYSQL_ROOT_PASSWORD: rootpass
-#   REACT_ENV: test
-
-# services:
-#   - name: mysql:5.7
-#     alias: mysql
-#     command: ["--default-authentication-plugin=mysql_native_password"]
-
-# before_script:
-#   - echo "Setting up MySQL..."
-#   - apt-get update -qq && apt-get install -y default-mysql-client
-#   - mysql -hmysql -uroot -p$MYSQL_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DB;"
-#   - mysql -hmysql -uroot -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL ON $MYSQL_DB.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
-
-# install-frontend:
-#   stage: install
-#   image: node:18
-#   script:
-#     - cd frontend
-#     - npm install
-#   artifacts:
-#     paths:
-#       - frontend/node_modules
-
-# install-backend:
-#   stage: install
-#   image: python:3.11
-#   script:
-#     - pip install pipenv
-#     - cd backend
-#     - pipenv install --dev
-#   artifacts:
-#     paths:
-#       - backend/.venv
-
-# test-frontend:
-#   stage: test
-#   image: node:18
-#   script:
-#     - cd frontend
-#     - npm test -- --watchAll=false
-
-# test-backend:
-#   stage: test
-#   image: python:3.11
-#   script:
-#     - cd backend
-#     - pip install pipenv
-#     - pipenv install --dev
-#     - pipenv run python manage.py test
-
-include:
-  - local: 'pipeline-test.yml'
-
 stages:
   - install
   - test
@@ -80,46 +18,43 @@ services:
     alias: mysql
     command: ["--default-authentication-plugin=mysql_native_password"]
 
-before_script:
-  - echo "Setting up MySQL..."
-  - apt-get update -qq && apt-get install -y default-mysql-client
-  - mysql -hmysql -uroot -p$MYSQL_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
-  - mysql -hmysql -uroot -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
-  - mysql -hmysql -uroot -p$MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
-
+# Install Frontend
 install-frontend:
   stage: install
   image: node:18
   script:
-    - cd frontend
+    - cd Downloads/frontend
     - npm install
   artifacts:
     paths:
-      - frontend/node_modules
+      - Downloads/frontend/node_modules
 
+# Install Backend
 install-backend:
   stage: install
   image: python:3.11
   script:
     - pip install pipenv
-    - cd backend
+    - cd Downloads/backend
     - pipenv install --dev
   artifacts:
     paths:
-      - backend/.venv
+      - Downloads/backend/.venv
 
+# Test Frontend
 test-frontend:
   stage: test
   image: node:18
   script:
-    - cd frontend
+    - cd Downloads/frontend
     - npm test -- --watchAll=false
 
+# Test Backend
 test-backend:
   stage: test
   image: python:3.11
   script:
-    - cd backend
+    - cd Downloads/backend
     - pip install pipenv
     - pipenv install --dev
     - pipenv run python manage.py test
